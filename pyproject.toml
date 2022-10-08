@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "TouchPanel"
+version = "0.1.0"
+description = ""
+authors = ["PaddeCraft <70023807+PaddeCraft@users.noreply.github.com>"]
+include = ["touchpanel/templates/**/*", "touchpanel/static/**/*", "touchpanel/cross.jpg"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Flask = "^2.2.2"
+Flask-SocketIO = "^5.3.1"
+simple-websocket = "^0.8.1"
+flask-sqlalchemy = "^3.0.0"
+obs-websocket-py = "^0.5.3"
+cuid = "^0.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = {version = "^22.10.0", allow-prereleases = true}
+
+[tool.poetry.scripts]
+touchpanel = "touchpanel.__main__:run"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

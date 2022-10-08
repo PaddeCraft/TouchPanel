@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TouchPanel</title>
+        <style>
+            @import url("https://fonts.googleapis.com/css?family=Poppins");
+
+            body {
+                margin: 0.3em;
+                font-family: "Poppins";
+                background-color: rgb(53, 50, 50);
+                color: rgb(243, 243, 243);
+            }
+        </style>
+        <script>
+            function selectElement(id, valueToSelect) {
+                // https://stackoverflow.com/a/78945
+                let element = document.getElementById(id);
+                element.value = valueToSelect;
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                selectElement("icon", "{{ icon }}");
+                selectElement("action", "{{ action }}");
+                const url = new URL(window.location.href);
+                if (url.searchParams.get("mode") != "edit") {
+                    document.getElementById("delete").style.display = "none";
+                }
+                document
+                    .getElementById("delete")
+                    .addEventListener("click", function () {
+                        window.location.href =
+                            "/edit/deletebtn?id=" +
+                            url.searchParams.get("id") +
+                            "&page=" +
+                            url.searchParams.get("page");
+                    });
+            });
+        </script>
+    </head>
+    <body>
+        <button onclick="window.close()">Cancel</button
+        ><button id="delete">Delete</button> <br /><br /><br />
+        <form action="" method="POST">
+            <p>Button name</p>
+            <input
+                name="name"
+                id="name"
+                type="text"
+                max="32"
+                required
+                value="{{ name }}"
+            />
+            <br /><br />
+            <p>Button action</p>
+            <select name="action" id="action">
+                {% for a in actions %}
+                <option vaule="{{ a }}">{{ a }}</option>
+                {% endfor %}
+            </select>
+            <br /><br />
+            <p>Button icon</p>
+            <select name="icon" id="icon">
+                {% for i in icons %}
+                <option vaule="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+            <br /><br /><br />
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>

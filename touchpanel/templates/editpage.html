@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TouchPanel</title>
+        <style>
+            @import url("https://fonts.googleapis.com/css?family=Poppins");
+
+            body {
+                margin: 0.3em;
+                font-family: "Poppins";
+                background-color: rgb(53, 50, 50);
+                color: rgb(243, 243, 243);
+            }
+        </style>
+        <script>
+            const url = new URL(window.location.href);
+            document.addEventListener("DOMContentLoaded", function () {
+                document
+                    .getElementById("delete")
+                    .addEventListener("click", function () {
+                        window.location.href =
+                            "/edit/deletepage?id=" +
+                            url.searchParams.get("page");
+                    });
+                document
+                    .getElementById("makemain")
+                    .addEventListener("click", function () {
+                        fetch(
+                            "/edit/makemain?page=" +
+                                url.searchParams.get("page")
+                        );
+                    });
+            });
+        </script>
+    </head>
+    <body>
+        <button id="delete">Delete page</button
+        ><button id="makemain">Make main page</button> <br /><br /><br />
+        <form action="" method="POST">
+            <p>Page name</p>
+            <input
+                type="text"
+                max="32"
+                name="name"
+                id="name"
+                value="{{ name }}"
+                required
+            />
+            {% if not edit %}
+            <br /><br />
+            <p>Page size</p>
+            <select id="type" name="type">
+                {% for size in sizes %}
+                <option value="{{ size.id }}">{{ size.name }}</option>
+                {% endfor %}
+            </select>
+            {% endif %}
+            <br /><br />
+            <button type="submit">Submit</button>
+        </form>
+        {% if not edit and pagecnt <= 1 %}
+        <script>
+            document.getElementById("delete").style.display = "none";
+        </script>
+        {% endif %} {% if not edit %}
+        <script>
+            document.getElementById("makemain").style.display = "none";
+        </script>
+        {% endif %}
+    </body>
+</html>

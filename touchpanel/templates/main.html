@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TouchPanel</title>
+        <link rel="stylesheet" href="/static/main.css" />
+        <script src="/static/socket.io.min.js"></script>
+        <script src="/static/main.js"></script>
+        {% if edit == True %}
+        <script>
+            window.editMode = true;
+        </script>
+        {% endif %}
+        <script>
+            // https://gist.github.com/liudmil-mitev/3ea474ef0b387a8cc2b9ea6bdeb8db7c
+            (function (window) {
+                function _resizeTable() {
+                    const margin = 0;
+                    requestAnimationFrame(function fitToParentOnResize() {
+                        document.querySelector("#main").style.height =
+                            document.body.offsetHeight -
+                            document.getElementById("pagenamecontainer")
+                                .offsetHeight +
+                            "px";
+                        fitToParent(document.querySelector("table"), margin);
+                    });
+                }
+                window.addEventListener("DOMContentLoaded", _resizeTable);
+                window.addEventListener("resize", _resizeTable);
+                setInterval(_resizeTable, 500);
+            })(this);
+        </script>
+    </head>
+    <body>
+        <h2 id="pagenamecontainer">
+            <span id="page">Loading...</span>
+            <span id="pagesel" class="pointer"> &nabla;</span>
+            {% if not edit %}
+            <span onclick="window.location.href = '/edit'" class="pointer">
+                ✎</span
+            >
+            <style>
+                #pagesettings {
+                    display: none;
+                }
+            </style>
+            {% else %}
+            <span
+                onclick="window.location.href = '/'"
+                class="pointer strikethrough"
+            >
+                ✎</span
+            >
+            {% endif %}
+            <span
+                id="pagesettings"
+                onclick='window.open("/edit/page?mode=edit&page=" + currentPage);'
+                class="pointer"
+            >
+                Page settings</span
+            >
+        </h2>
+        <div id="main">
+            <table></table>
+        </div>
+    </body>
+    <div id="pageselect" style="display: none"></div>
+</html>
