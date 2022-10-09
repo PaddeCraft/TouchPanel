@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "TouchPanel"
-version = "0.1.2"
+version = "0.1.3"
 description = ""
 authors = ["PaddeCraft <70023807+PaddeCraft@users.noreply.github.com>"]
 include = ["touchpanel/templates/**/*", "touchpanel/static/**/*", "touchpanel/cross.jpg"]
