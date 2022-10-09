@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "TouchPanel"
-version = "0.1.4"
+version = "0.1.5"
 description = ""
 authors = ["PaddeCraft <70023807+PaddeCraft@users.noreply.github.com>"]
 include = ["touchpanel/templates/**/*", "touchpanel/static/**/*", "touchpanel/cross.jpg"]
@@ -16,7 +16,6 @@ cuid = "^0.3"
 obsws-python = "^1.1.1"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
 black = {version = "^22.10.0", allow-prereleases = true}
 
 [tool.poetry.scripts]

@@ -1,20 +1,29 @@
+# ---------------------------------------------------------------------------- #
+#                                    Imports                                   #
+# ---------------------------------------------------------------------------- #
+
 # Server Stuff
-from crypt import methods
 from flask import Flask, render_template, request, send_file
 from flask_socketio import SocketIO, emit
 from flask_sqlalchemy import SQLAlchemy
 
 # Misc
+import socket as _socket
+import threading
 import pathlib
+import logging
 import random
 import string
 import shutil
+import time
 import os
 
 # Cuid
 from cuid import cuid
 
-# Initialize variables
+# ---------------------------------------------------------------------------- #
+#                             Initialize variables                             #
+# ---------------------------------------------------------------------------- #
 cfgPath = os.path.join(os.path.expanduser("~"), ".PaddeCraftSoftware", "TouchPanel")
 app = Flask("TouchPanel", root_path=pathlib.Path(__file__).parent.absolute())
 app.config["SECRET_KEY"] = "SECRET-" + (
@@ -33,7 +42,17 @@ pageSizes = [
     {"id": 4, "name": "15x10"},
 ]
 
-# Database models
+# ---------------------------------------------------------------------------- #
+#                             Prevent flask logger                             #
+# ---------------------------------------------------------------------------- #
+
+
+logging.getLogger("werkzeug").disabled = True
+
+
+# ---------------------------------------------------------------------------- #
+#                                Database models                               #
+# ---------------------------------------------------------------------------- #
 class Page(db.Model):
     cuid = db.Column(db.String(32), primary_key=True, unique=True)
     name = db.Column(db.String(32))
@@ -55,8 +74,11 @@ class Button(db.Model):
     action = db.Column(db.String(128))
 
 
-# Create everything if not existing
+# ---------------------------------------------------------------------------- #
+#                       Create everything if not existing                      #
+# ---------------------------------------------------------------------------- #
 if not os.path.isfile(os.path.join(cfgPath, "data.db")):
+    print("Generating example page...")
     os.makedirs(os.path.join(cfgPath, "scripts"), exist_ok=True)
     os.makedirs(os.path.join(cfgPath, "icons"), exist_ok=True)
     with open(os.path.join(cfgPath, "scripts", "noneaction.py"), "w+") as f:
@@ -81,12 +103,16 @@ if not os.path.isfile(os.path.join(cfgPath, "data.db")):
         os.path.join(cfgPath, "icons", "cross.jpg"),
     )
 
-# Code functions
+# ---------------------------------------------------------------------------- #
+#                                Code functions                                #
+# ---------------------------------------------------------------------------- #
 def _loadPage(id):
     emit("loadpage", generatePageJson(id))
 
 
-# Helper functions
+# ---------------------------------------------------------------------------- #
+#                               Helper functions                               #
+# ---------------------------------------------------------------------------- #
 def execPyCode(code, btnid):
     exec(code, {"btnid": btnid, "loadPage": _loadPage})
 
@@ -109,6 +135,9 @@ def generatePageJson(pageCuid):
     return data
 
 
+# ---------------------------------------------------------------------------- #
+#                              Socket interactions                             #
+# ---------------------------------------------------------------------------- #
 @socket.on("run")
 def runaction(btnid):
     btn = Button.query.filter_by(cuid=btnid).first()
@@ -131,6 +160,9 @@ def loadPage(id):
     emit("loadpage", generatePageJson(id))
 
 
+# ---------------------------------------------------------------------------- #
+#                               HTTP interactions                              #
+# ---------------------------------------------------------------------------- #
 @app.route("/icon/<file>/")
 def loadIcon(file):
     return send_file(os.path.join(cfgPath, "icons", file))
@@ -278,7 +310,39 @@ def editPage():
         return closeTab
 
 
+# ---------------------------------------------------------------------------- #
+#                                 Run function                                 #
+# ---------------------------------------------------------------------------- #
 def run():
+    def notifyUp():
+        time.sleep(1.4)
+        print("\nThe server should be up.")
+        print("Detecting ip address...")
+        # Get ip, source: https://stackoverflow.com/a/1267524
+        ip = (
+            (
+                [
+                    ip
+                    for ip in _socket.gethostbyname_ex(_socket.gethostname())[2]
+                    if not ip.startswith("127.")
+                ]
+                or [
+                    [
+                        (s.connect(("8.8.8.8", 53)), s.getsockname()[0], s.close())
+                        for s in [_socket.socket(_socket.AF_INET, _socket.SOCK_DGRAM)]
+                    ][0][1]
+                ]
+            )
+            + [None]
+        )[0]
+        if ip == None:
+            print("Couldn't detect your ip address.")
+        else:
+            print("Running on " + ip + ":8811")
+        print("\nPress ^C to stop the server.")
+
+    print("Starting Server...")
+    threading.Thread(target=notifyUp).start()
     socket.run(app, host="0.0.0.0", port="8811", allow_unsafe_werkzeug=True)
 
 
