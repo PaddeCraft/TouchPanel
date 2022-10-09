@@ -12,6 +12,6 @@ The project is manages using Python Poetry.
 ## Basics
 
 Install:
-`pipx install https://github.com/PaddeCraft/TouchPanel/archive/refs/heads/main.zip`
+`pipx install https://github.com/PaddeCraft/TouchPanel/archive/refs/heads/main.zip`  
 Run:
 `touchpanel`

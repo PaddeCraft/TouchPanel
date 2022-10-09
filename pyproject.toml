@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "TouchPanel"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["PaddeCraft <70023807+PaddeCraft@users.noreply.github.com>"]
 include = ["touchpanel/templates/**/*", "touchpanel/static/**/*", "touchpanel/cross.jpg"]
@@ -11,8 +11,9 @@ Flask = "^2.2.2"
 Flask-SocketIO = "^5.3.1"
 simple-websocket = "^0.8.1"
 flask-sqlalchemy = "^3.0.0"
-obs-websocket-py = "^0.5.3"
+obs-websocket-py = "0.5.3"
 cuid = "^0.3"
+obsws-python = "^1.1.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

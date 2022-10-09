@@ -14,9 +14,6 @@ import os
 # Cuid
 from cuid import cuid
 
-# Import libs for actions
-from .libs import obs as obslib
-
 # Initialize variables
 cfgPath = os.path.join(os.path.expanduser("~"), ".PaddeCraftSoftware", "TouchPanel")
 app = Flask("TouchPanel", root_path=pathlib.Path(__file__).parent.absolute())

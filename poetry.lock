@@ -196,6 +196,21 @@ six = "*"
 websocket-client = "*"
 
 [[package]]
+name = "obsws-python"
+version = "1.1.1"
+description = "A Python SDK for OBS Studio WebSocket v5.0"
+category = "main"
+optional = false
+python-versions = ">=3.10"
+
+[package.dependencies]
+tomli = {version = ">=2.0.1", markers = "python_version < \"3.11\""}
+websocket-client = "*"
+
+[package.extras]
+dev = ["isort", "black", "pytest-randomly", "pytest"]
+
+[[package]]
 name = "packaging"
 version = "21.3"
 description = "Core utilities for Python packages"
@@ -361,7 +376,7 @@ sqlcipher = ["sqlcipher3-binary"]
 name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 
@@ -414,7 +429,7 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "befe9f04eaaddc2169dbdf14465c6b4270706287f04beb114134d621a502948f"
+content-hash = "e1c51b3003c49da4b94a60d98242a647693e8fad92579a37122610b46a73fa75"
 
 [metadata.files]
 atomicwrites = [
@@ -594,6 +609,10 @@ mypy-extensions = [
 ]
 obs-websocket-py = [
     {file = "obs-websocket-py-0.5.3.tar.gz", hash = "sha256:404008be3aef64765a06f1e052889e08429edb023f39262f239b6e30d592b397"},
+]
+obsws-python = [
+    {file = "obsws-python-1.1.1.tar.gz", hash = "sha256:91cd0eb97bd4e4a6ce5b48f4615d8901cd9b566983f2180fb078f070d1b37c13"},
+    {file = "obsws_python-1.1.1-py3-none-any.whl", hash = "sha256:4aeadaa7415032a0242b16a59e0ce5300b6e0d8af1d98649f4d0ee60da8e8275"},
 ]
 packaging = [
     {file = "packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},

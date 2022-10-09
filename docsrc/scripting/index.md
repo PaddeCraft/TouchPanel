@@ -2,7 +2,7 @@
 
 ## Info
 
-To add functionality to the buttons, you need to use python. The scripts should be located in ~/.PaddeCraftSoftware/TouckPanel/scripts.
+To add functionality to the buttons, you need to use python. The scripts should be located in ~/.PaddeCraftSoftware/TouchPanel/scripts.
 
 ## Libs
 

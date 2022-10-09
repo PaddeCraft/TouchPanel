@@ -24,17 +24,17 @@ class Recording:
             else:
                 return VideoStreamState.RUNNING, time
 
-    def pause(self):
+    def pause(self) -> None:
         state, time = self.getState()
         if state == VideoStreamState.RUNNING:
             self.controller.ws.call(requests.PauseRecording())
 
-    def start(self):
+    def start(self) -> None:
         state, time = self.getState()
         if not state == VideoStreamState.RUNNING:
             self.controller.ws.call(requests.StartRecording())
 
-    def end(self):
+    def end(self) -> None:
         state, time = self.getState()
         if not state == VideoStreamState.STOPPED:
             self.controller.ws.call(requests.StopRecording())
@@ -51,12 +51,12 @@ class Stream:
         else:
             return False, None
 
-    def start(self):
+    def start(self) -> None:
         running, time = self.getState()
         if not running:
             self.controller.ws.call(requests.StartStreaming())
 
-    def end(self):
+    def end(self) -> None:
         running, time = self.getState()
         if running:
             self.controller.ws.call(requests.StopStreaming())
@@ -71,19 +71,19 @@ class ObsController:
         self.recording = Recording(self)
         self.stream = Stream(self)
 
-    def getScenes(self):
+    def getScenes(self) -> dict:
         return self.ws.call(requests.GetSceneList())
 
-    def getSources(self):
+    def getSources(self) -> dict:
         return self.ws.call(requests.GetMediaSourcesList())
 
-    def getCurrentScene(self):
+    def getCurrentScene(self) -> dict:
         return self.ws.call(requests.GetCurrentScene())
 
-    def setProfile(self, name: str):
+    def setProfile(self, name: str) -> None:
         return self.ws.call(requests.SetCurrentProfile(name))
 
-    def setScene(self, name: str):
+    def setScene(self, name: str) -> None:
         self.ws.call(requests.SetCurrentScene(name))
 
     def __del__(self):
