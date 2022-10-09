@@ -274,7 +274,7 @@ def editPage():
 
 
 def run():
-    socket.run(app, host="0.0.0.0", port="8811")
+    socket.run(app, host="0.0.0.0", port="8811", allow_unsafe_werkzeug=True)
 
 
 if __name__ == "__main__":

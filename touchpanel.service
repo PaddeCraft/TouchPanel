@@ -1,0 +1,8 @@
+[Unit]
+Description=Autostart TouchPanel
+[Service]
+Type=simple
+TimeoutStartSec=0
+ExecStart=$HOME/.local/bin/touchpanel
+[Install]
+WantedBy=default.target
