@@ -81,9 +81,14 @@ if not os.path.isfile(os.path.join(cfgPath, "data.db")):
         os.path.join(cfgPath, "icons", "cross.jpg"),
     )
 
+# Code functions
+def _loadPage(id):
+    emit("loadpage", generatePageJson(id))
+
+
 # Helper functions
 def execPyCode(code, btnid):
-    exec(code, {"btnid": btnid})
+    exec(code, {"btnid": btnid, "loadPage": _loadPage})
 
 
 def generatePageJson(pageCuid):
