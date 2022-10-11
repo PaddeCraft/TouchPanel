@@ -1,4 +1,4 @@
-# OBS controller library WSv4
+# Configuration Manager
 
 ## About
 

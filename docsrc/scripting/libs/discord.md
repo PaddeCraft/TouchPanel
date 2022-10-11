@@ -1,4 +1,4 @@
-# OBS controller library WSv4
+# Discord RPC Remote
 
 ## About
 
