@@ -1,0 +1,36 @@
+<!doctypehtml><html lang=en><meta charset=UTF-8><meta content="IE=edge"http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1"name=viewport><title>Docs</title><link href="https://fonts.googleapis.com/css?family=Nunito"rel=stylesheet><link href=/assets/docs-codehilie.css rel=stylesheet><link href=/assets/docs.css rel=stylesheet><script>function resizeSidebar(){window.matchMedia("(min-width: 800px)").matches?(document.getElementById("tree").style.height=document.getElementById("main").offsetHeight+"px",document.getElementById("tree").style.borderBottom="none"):(document.getElementById("tree").style.height="100%",document.getElementById("tree").style.borderBottom="1px solid")}document.addEventListener("DOMContentLoaded",function(){resizeSidebar(),window.addEventListener("resize",resizeSidebar),document.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(function(e){"tableofcontents"!=e.id&&(e.classList.add("headerlink"),id=e.innerText,e.id="headerlink-"+id.replaceAll(" ","-").toLowerCase(),e.addEventListener("click",function(e){url=new URL(window.location.href),url.searchParams.set("jumpto",e.target.id),navigator.clipboard.writeText(url.toString()),window.location.href=url.toString()}))}),setTimeout(function(){url=new URL(window.location.href),jumpto=url.searchParams.get("jumpto"),null!=jumpto&&document.getElementById(jumpto).scrollIntoView(!0)},200)})</script><div id=wrapper><div id=tree><h2 id=tableofcontents>Table of contents</h2><ul><li><a href='/TouchPanel/docs/scripting'><span>Scripting the buttons</span></a></li><ul><li><a href='/TouchPanel/docs/scripting/libs'><span>Libraries</span></a></li><ul><li><a href='/TouchPanel/docs/scripting/libs/obs4.html'><span>OBS controller library WSv4</span></a></li><li><a href='/TouchPanel/docs/scripting/libs/discord.html'><span>OBS controller library WSv4</span></a></li><li><a href='/TouchPanel/docs/scripting/libs/obs5.html'><span>OBS controller library WSv5</span></a></li></ul></ul><li><a href='/TouchPanel/docs/index.html'><span>Overview</span></a></li></ul></div><div id=main><h1>OBS controller library WSv4</h1>
+<h2>About</h2>
+<p>With this library you can automate Discord, e.g. mute your microphone or join a voice channel.</p>
+<h2>Setup</h2>
+<ol>
+<li>Go to <a href="https://discord.com/developers/applications">the Discord developer portal</a></li>
+<li>Create a new application</li>
+<li>In the sidebar, navigate to OAuth2</li>
+<li>Add a redirect to <code>http://localhost</code></li>
+<li>Save Client ID and Client Secret, we'll need these later</li>
+<li>Create an action using one of the features of this library</li>
+<li>Run the previously created action</li>
+<li>Navigate to ~/.PaddeCraftSoftware/TouchPanel/</li>
+<li>Fill in the Client ID and Client Secret under the section "builtin.discord" in the file plugincfg.toml</li>
+<li>Open the Discord app on your computer, the website won't work</li>
+<li>Run the previously created action again</li>
+<li>Click 'Authorize' in the discord app</li>
+<li>You're ready to go!</li>
+</ol>
+<h2>Import</h2>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">touchpanel.libs</span> <span class="kn">import</span> <span class="n">discord</span>
+</code></pre></div>
+
+<h2>Classes</h2>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">discord</span><span class="o">.</span><span class="n">DiscordController</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">toggleMic</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+    <span class="k">def</span> <span class="nf">setMic</span><span class="p">(</span><span class="n">on</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+    <span class="k">def</span> <span class="nf">joinVoiceChannel</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+    <span class="k">def</span> <span class="nf">setTextChannel</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+    <span class="k">def</span> <span class="nf">getVoiceSettings</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">pypresence</span><span class="o">.</span><span class="n">Response</span>
+    <span class="k">def</span> <span class="nf">getSelectedVoiceChannel</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">pypresence</span><span class="o">.</span><span class="n">Response</span>
+    <span class="k">def</span> <span class="nf">getGuilds</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">pypresence</span><span class="o">.</span><span class="n">Response</span>
+    <span class="k">def</span> <span class="nf">getChannels</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">pypresence</span><span class="o">.</span><span class="n">Response</span>
+</code></pre></div></div></div>
