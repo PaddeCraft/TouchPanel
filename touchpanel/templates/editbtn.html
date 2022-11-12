@@ -16,6 +16,8 @@
             }
         </style>
         <script>
+            window.btn_data = decodeURIComponent("{{ btnData }}");
+
             function selectElement(id, valueToSelect) {
                 // https://stackoverflow.com/a/78945
                 let element = document.getElementById(id);
@@ -26,8 +28,10 @@
                 selectElement("icon", "{{ icon }}");
                 selectElement("action", "{{ action }}");
                 const url = new URL(window.location.href);
+                window.new = false;
                 if (url.searchParams.get("mode") != "edit") {
                     document.getElementById("delete").style.display = "none";
+                    window.new = true;
                 }
                 document
                     .getElementById("delete")
@@ -39,11 +43,64 @@
                             url.searchParams.get("page");
                     });
             });
+
+            function copyToClipboard() {
+                navigator.clipboard
+                    .write([
+                        new ClipboardItem({
+                            "text/plain": new Blob([window.btn_data], {
+                                type: "text/plain",
+                            }),
+                        }),
+                    ])
+                    .then(
+                        function () {
+                            alert("Button copied to clipboard.");
+                        },
+                        function (error) {
+                            alert(
+                                "Unable to write to clipboard. Error: " + error
+                            );
+                        }
+                    );
+            }
+
+            async function importFromClipboard() {
+                if (!window.new) {
+                    if (
+                        await !confirm(
+                            "This will overwrite the current button. Continue?"
+                        )
+                    ) {
+                        return;
+                    }
+                }
+                setTimeout(async function () {
+                    // Workaround for NotAllowedError: document not focused
+                    try {
+                        const clipboardContents =
+                            await navigator.clipboard.readText();
+                        btn_data = await JSON.parse(clipboardContents);
+                        selectElement("icon", btn_data.icon);
+                        selectElement("action", btn_data.action);
+                        document.getElementById("name").value = btn_data.name;
+                    } catch (error) {
+                        console.error("Error", error);
+                        alert("Failed to load button. Error: " + error);
+                    }
+                }, 100);
+            }
         </script>
     </head>
     <body>
-        <button onclick="window.close()">Cancel</button
-        ><button id="delete">Delete</button> <br /><br /><br />
+        {% if not isNew %}
+        <button onclick="copyToClipboard()">Copy Button</button>
+        {% endif %}
+        <button onclick="importFromClipboard()">
+            Import Button From Clipboard
+        </button>
+        <button onclick="window.close()">Cancel</button>
+        <button id="delete">Delete</button> <br /><br /><br />
         <form action="" method="POST">
             <p>Button name</p>
             <input

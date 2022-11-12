@@ -9,12 +9,15 @@ from flask_sqlalchemy import SQLAlchemy
 
 # Misc
 import socket as _socket
+import urllib.parse
 import threading
 import pathlib
 import logging
 import random
 import string
 import shutil
+import base64
+import json
 import time
 import os
 
@@ -189,7 +192,7 @@ def editBtn():
                 actions=actions,
                 icons=icons,
                 action=actions[0],
-                name="",
+                isNew=False,
                 icon=icons[0],
             )
         else:
@@ -197,11 +200,22 @@ def editBtn():
             action = btn.action
             name = btn.name
             icon = btn.icon
+
+            btnData = {"name": btn.name, "icon": btn.icon, "action": btn.action}
+
+            with open(os.path.join(cfgPath, "icons", btn.icon), "rb") as _icon:
+                btnData["icon_b64"] = base64.b64encode(_icon.read()).decode("utf-8")
+
+            with open(os.path.join(cfgPath, "scripts", btn.action), "rb") as _action:
+                btnData["script_64"] = base64.b64encode(_action.read()).decode("utf-8")
+
             return render_template(
                 "editbtn.html",
+                btnData=urllib.parse.quote(json.dumps(btnData)),
                 actions=actions,
                 icons=icons,
                 action=action,
+                isNew=False,
                 name=name,
                 icon=icon,
             )
