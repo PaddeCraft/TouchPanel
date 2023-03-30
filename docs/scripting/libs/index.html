@@ -1,2 +1,54 @@
-<!doctypehtml><html lang=en><meta charset=UTF-8><meta content="IE=edge"http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1"name=viewport><title>Docs</title><link href="https://fonts.googleapis.com/css?family=Nunito"rel=stylesheet><link href=/assets/docs-codehilie.css rel=stylesheet><link href=/assets/docs.css rel=stylesheet><script>function resizeSidebar(){window.matchMedia("(min-width: 800px)").matches?(document.getElementById("tree").style.height=document.getElementById("main").offsetHeight+"px",document.getElementById("tree").style.borderBottom="none"):(document.getElementById("tree").style.height="100%",document.getElementById("tree").style.borderBottom="1px solid")}document.addEventListener("DOMContentLoaded",function(){resizeSidebar(),window.addEventListener("resize",resizeSidebar),document.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(function(e){"tableofcontents"!=e.id&&(e.classList.add("headerlink"),id=e.innerText,e.id="headerlink-"+id.replaceAll(" ","-").toLowerCase(),e.addEventListener("click",function(e){url=new URL(window.location.href),url.searchParams.set("jumpto",e.target.id),navigator.clipboard.writeText(url.toString()),window.location.href=url.toString()}))}),setTimeout(function(){url=new URL(window.location.href),jumpto=url.searchParams.get("jumpto"),null!=jumpto&&document.getElementById(jumpto).scrollIntoView(!0)},200)})</script><div id=wrapper><div id=tree><h2 id=tableofcontents>Table of contents</h2><ul><li><a href='/TouchPanel/docs/index.html'><span>Overview</span></a></li><li><a href='/TouchPanel/docs/scripting'><span>Scripting the buttons</span></a></li><ul><li><a href='/TouchPanel/docs/scripting/libs'><span>Libraries</span></a></li><ul><li><a href='/TouchPanel/docs/scripting/libs/obs5.html'><span>OBS controller library WSv5</span></a></li><li><a href='/TouchPanel/docs/scripting/libs/discord.html'><span>Discord RPC Remote</span></a></li><li><a href='/TouchPanel/docs/scripting/libs/configmgr.html'><span>Configuration Manager</span></a></li><li><a href='/TouchPanel/docs/scripting/libs/obs4.html'><span>OBS controller library WSv4</span></a></li></ul></ul></ul></div><div id=main><h1>Libraries</h1>
-<p>There are build-in libraries to help you automate your buttons. Look in the table of contents to see the docs for them. You can find the import statement for every library on the responsive documentation page. </p></div></div>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Docs</title>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Nunito"
+        />
+        <link rel="stylesheet" href="/assets/docs-codehilie.css" />
+        <link rel="stylesheet" href="/assets/docs.css" />
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Direct header link
+                document
+                    .querySelectorAll("h1, h2, h3, h4, h5, h6")
+                    .forEach(function (e) {
+                        if (!(e.id == "tableofcontents")) {
+                            e.classList.add("headerlink");
+                            id = e.innerText;
+                            e.id =
+                                "headerlink-" +
+                                id.replaceAll(" ", "-").toLowerCase();
+                            e.addEventListener("click", function (e) {
+                                url = new URL(window.location.href);
+                                url.searchParams.set("jumpto", e.target.id);
+                                navigator.clipboard.writeText(url.toString());
+                                window.location.href = url.toString();
+                            });
+                        }
+                    });
+                setTimeout(function () {
+                    url = new URL(window.location.href);
+                    jumpto = url.searchParams.get("jumpto");
+                    if (!(jumpto == null)) {
+                        document.getElementById(jumpto).scrollIntoView(true);
+                    }
+                }, 200);
+            });
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="tree">
+                <h2 id="tableofcontents">Table of contents</h2>
+                <ul><li><a href='/TouchPanel/docs/index.html'><span>Overview</span></a></li><li><a href='/TouchPanel/docs/scripting'><span>Scripting the buttons</span></a></li><ul><li><a href='/TouchPanel/docs/scripting/libs'><span>Libraries</span></a></li><ul><li><a href='/TouchPanel/docs/scripting/libs/obs5.html'><span>OBS controller library WSv5</span></a></li><li><a href='/TouchPanel/docs/scripting/libs/obs4.html'><span>OBS controller library WSv4</span></a></li><li><a href='/TouchPanel/docs/scripting/libs/configmgr.html'><span>Configuration Manager</span></a></li><li><a href='/TouchPanel/docs/scripting/libs/discord.html'><span>Discord RPC Remote</span></a></li></ul></ul></ul>
+            </div>
+            <div id="main"><h1>Libraries</h1>
+<p>There are build-in libraries to help you automate your buttons. Look in the table of contents to see the docs for them. You can find the import statement for every library on the responsive documentation page. </p></div>
+        </div>
+    </body>
+</html>
